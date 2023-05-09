@@ -87,7 +87,11 @@ namespace RegInputEvent
     {
         public static List<Key> keys = new List<Key>();
         public static List<Mouse> mouses = new List<Mouse>();
-        public static void OnInput(KeyCode keyCode, KeyPressMode keyMode, System.Action action)
+        public static void OnMouse(Mouse mouse)
+        {
+            mouses.Add(mouse);
+        }
+        public static void OnKey(KeyCode keyCode, KeyPressMode keyMode, System.Action action)
         {
             keys.Add(new Key()
             {

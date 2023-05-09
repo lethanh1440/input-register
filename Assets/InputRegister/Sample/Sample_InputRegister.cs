@@ -7,7 +7,7 @@ public class Sample_InputRegister : MonoBehaviour
     void Start()
     {
         //key event
-        InputEvent.OnInput(KeyCode.D, KeyPressMode.Down, () =>
+        InputEvent.OnKey(KeyCode.D, KeyPressMode.Down, () =>
         {
             print("d pressed");
             var box = GameObject.FindObjectsOfType<BoxCollider>();
@@ -17,14 +17,14 @@ public class Sample_InputRegister : MonoBehaviour
             }
         });
         //left mouse event
-        InputEvent.mouses.Add(new Mouse()
+        InputEvent.OnMouse(new Mouse()
         {
             mouseCode = MouseCode.Left,
             mousePressMode = MousePressMode.Down,
             action = OnLeftMouseDown
         });
         //right mouse event
-        InputEvent.mouses.Add(new Mouse()
+        InputEvent.OnMouse(new Mouse()
         {
             mouseCode = MouseCode.Right,
             mousePressMode = MousePressMode.Drag,
