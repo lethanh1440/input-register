@@ -4,8 +4,13 @@ using UnityEngine;
 using RegInputEvent;
 public class Sample_InputRegister : MonoBehaviour
 {
+    [SerializeField] GameObject notif;
+    [SerializeField] UnityEngine.UI.Text txtSliVal;
+    bool isWaitHideNotif;
     void Start()
     {
+        notif.gameObject.SetActive(false);
+
         //key event
         InputEvent.OnKey(KeyCode.D, KeyPressMode.Down, () =>
         {
@@ -30,6 +35,30 @@ public class Sample_InputRegister : MonoBehaviour
             mousePressMode = MousePressMode.Drag,
             action = OnRightMouseDrag
         });
+        //ui event
+        InputEvent.OnButton("btn-test", () =>
+        {
+            OnButtonTestClick();
+        });
+        InputEvent.OnSlider("sli-test", (v) =>
+        {
+            txtSliVal.text = v.ToString();
+        });
+    }
+    private void OnButtonTestClick()
+    {
+        if (!isWaitHideNotif)
+        {
+            isWaitHideNotif = true;
+            notif.gameObject.SetActive(true);
+            StartCoroutine(HideNotif());
+        }
+    }
+    private IEnumerator HideNotif()
+    {
+        yield return new WaitForSeconds(.5f);
+        isWaitHideNotif = false;
+        notif.gameObject.SetActive(false);
     }
     private void OnLeftMouseDown(Vector3 mousePos)
     {

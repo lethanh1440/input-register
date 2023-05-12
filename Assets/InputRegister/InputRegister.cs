@@ -100,7 +100,36 @@ namespace RegInputEvent
                 keyMode = keyMode
             });
         }
-
+        public static void OnButton(string buttonName, System.Action action)
+        {
+            var gameObj = GameObject.Find(buttonName);
+            if (gameObj == null)
+            {
+                Debug.LogError("Not found " + buttonName);
+            }
+            else
+            {
+                gameObj.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() =>
+                {
+                    action?.Invoke();
+                });
+            }
+        }
+        public static void OnSlider(string sliderName, System.Action<float> action)
+        {
+            var gameObj = GameObject.Find(sliderName);
+            if (gameObj == null)
+            {
+                Debug.LogError("Not found " + sliderName);
+            }
+            else
+            {
+                gameObj.GetComponent<UnityEngine.UI.Slider>().onValueChanged.AddListener((v) =>
+                {
+                    action?.Invoke(v);
+                });
+            }
+        }
     }
     public enum KeyPressMode
     {
